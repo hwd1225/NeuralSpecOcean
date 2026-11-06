@@ -1,0 +1,7 @@
+/* SPDX-License-Identifier: MIT | Copyright (c) 2026 NeuralSpecOcean-WallpaperEngine Contributors */
+/* Wallpaper mode: no "show UI" pill, no sponsor card in clean mode, no text selection or scrollbars. */
+body.gui-hidden .restore-gui-pill { display: none !important; }
+body:not(.we-show-ui) .sponsor-card,
+body:not(.we-show-ui) aside,
+body:not(.we-show-ui) .perf-hud { display: none !important; }
+html, body { user-select: none; -webkit-user-select: none; overflow: hidden; background: #05111a; }

@@ -1,0 +1,282 @@
+{
+	"contentrating" : "Everyone",
+	"description" : "非官方移植：NeuralSpecOcean 即時 WebGL2 海岸海洋模擬（原作 bgbg108555 與 NeuralSpecOcean Contributors，MIT 授權：https://github.com/bgbg108555/NeuralSpecOcean）。支援跟隨電腦時間 / 日夜循環的平順日夜變化、五種視角、鏡頭擺動（水平 / 八字 / 繞圈，可反向，不會轉到背面）、視角跟隨滑鼠偏移、海水顏色、浪高、畫質與海浪音效。",
+	"file" : "index.html",
+	"general" :
+	{
+		"properties" :
+		{
+			"schemecolor" :
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0.09 0.26 0.36"
+			},
+			"timemode" :
+			{
+				"order" : 1,
+				"text" : "日夜模式",
+				"type" : "combo",
+				"value" : "realtime",
+				"options" :
+				[
+					{ "label" : "跟隨電腦時間", "value" : "realtime" },
+					{ "label" : "日夜循環", "value" : "cycle" },
+					{ "label" : "固定時間", "value" : "fixed" }
+				]
+			},
+			"timeofday" :
+			{
+				"order" : 2,
+				"text" : "時間（固定 / 循環起點）",
+				"type" : "slider",
+				"min" : 0,
+				"max" : 24,
+				"step" : 0.1,
+				"precision" : 1,
+				"fraction" : true,
+				"value" : 15.6,
+				"condition" : "timemode.value != 'realtime'"
+			},
+			"cycleminutes" :
+			{
+				"order" : 3,
+				"text" : "一天循環長度（分鐘）",
+				"type" : "slider",
+				"min" : 1,
+				"max" : 240,
+				"value" : 30,
+				"condition" : "timemode.value == 'cycle'"
+			},
+			"timetransition" :
+			{
+				"order" : 4,
+				"text" : "時間大幅變化時的過渡秒數",
+				"type" : "slider",
+				"min" : 1,
+				"max" : 30,
+				"value" : 8
+			},
+			"viewpreset" :
+			{
+				"order" : 5,
+				"text" : "視角",
+				"type" : "combo",
+				"value" : "coast",
+				"options" :
+				[
+					{ "label" : "海岸全景", "value" : "coast" },
+					{ "label" : "礁石激浪", "value" : "rocks" },
+					{ "label" : "沙灘拍岸", "value" : "swash" },
+					{ "label" : "外海深浪", "value" : "offshore" },
+					{ "label" : "水下視角", "value" : "dive" }
+				]
+			},
+			"autorotate" :
+			{
+				"order" : 6,
+				"text" : "鏡頭緩慢擺動（不會轉到背面）",
+				"type" : "bool",
+				"value" : true
+			},
+			"rotatemode" :
+			{
+				"order" : 7,
+				"text" : "擺動方式",
+				"type" : "combo",
+				"value" : "cw",
+				"options" :
+				[
+					{ "label" : "水平移動", "value" : "cw" },
+					{ "label" : "水平移動（反向）", "value" : "ccw" },
+					{ "label" : "八字形", "value" : "eight" },
+					{ "label" : "八字形（反向）", "value" : "eight_r" },
+					{ "label" : "繞圈", "value" : "circle" },
+					{ "label" : "繞圈（反向）", "value" : "circle_r" }
+				],
+				"condition" : "autorotate.value == true"
+			},
+			"rotaterange" :
+			{
+				"order" : 8,
+				"text" : "擺動角度（左右各幾度）",
+				"type" : "slider",
+				"min" : 5,
+				"max" : 60,
+				"value" : 25,
+				"condition" : "autorotate.value == true"
+			},
+			"rotateperiod" :
+			{
+				"order" : 9,
+				"text" : "擺動一輪秒數",
+				"type" : "slider",
+				"min" : 10,
+				"max" : 300,
+				"value" : 60,
+				"condition" : "autorotate.value == true"
+			},
+			"waterpalette" :
+			{
+				"order" : 10,
+				"text" : "海水顏色",
+				"type" : "combo",
+				"value" : "emerald",
+				"options" :
+				[
+					{ "label" : "經典翡翠海岸", "value" : "emerald" },
+					{ "label" : "珊瑚琉璃淺灣", "value" : "maldives" },
+					{ "label" : "太平洋深邃鈷藍", "value" : "pacific" },
+					{ "label" : "花東碧玉礦物綠", "value" : "jade" },
+					{ "label" : "北歐冷冽墨海", "value" : "nordic" }
+				]
+			},
+			"watertint" :
+			{
+				"order" : 11,
+				"text" : "色調（翠綠 ↔ 鈷藍）",
+				"type" : "slider",
+				"min" : -1,
+				"max" : 1,
+				"step" : 0.01,
+				"precision" : 2,
+				"fraction" : true,
+				"value" : 0
+			},
+			"waterdepth" :
+			{
+				"order" : 12,
+				"text" : "海水深淺",
+				"type" : "slider",
+				"min" : 0.35,
+				"max" : 2.4,
+				"step" : 0.01,
+				"precision" : 2,
+				"fraction" : true,
+				"value" : 1
+			},
+			"waterclarity" :
+			{
+				"order" : 13,
+				"text" : "海水清澈度",
+				"type" : "slider",
+				"min" : 0.55,
+				"max" : 1.75,
+				"step" : 0.01,
+				"precision" : 2,
+				"fraction" : true,
+				"value" : 1
+			},
+			"terrain" :
+			{
+				"order" : 14,
+				"text" : "海岸地形",
+				"type" : "combo",
+				"value" : "baseline",
+				"options" :
+				[
+					{ "label" : "自然彎曲海灣", "value" : "baseline" },
+					{ "label" : "離岸淺灘沙洲", "value" : "sandbar" }
+				]
+			},
+			"amplitude" :
+			{
+				"order" : 15,
+				"text" : "海浪高度（公尺）",
+				"type" : "slider",
+				"min" : 0.2,
+				"max" : 1.2,
+				"step" : 0.01,
+				"precision" : 2,
+				"fraction" : true,
+				"value" : 0.64
+			},
+			"foam" :
+			{
+				"order" : 16,
+				"text" : "浪花濃度",
+				"type" : "slider",
+				"min" : 0,
+				"max" : 1.8,
+				"step" : 0.01,
+				"precision" : 2,
+				"fraction" : true,
+				"value" : 0.94
+			},
+			"quality" :
+			{
+				"order" : 17,
+				"text" : "畫質",
+				"type" : "combo",
+				"value" : "medium",
+				"options" :
+				[
+					{ "label" : "極速（筆電 / 內顯）", "value" : "mobile" },
+					{ "label" : "低", "value" : "low" },
+					{ "label" : "中（推薦）", "value" : "medium" },
+					{ "label" : "高", "value" : "high" }
+				]
+			},
+			"volume" :
+			{
+				"order" : 18,
+				"text" : "海浪音效音量",
+				"type" : "slider",
+				"min" : 0,
+				"max" : 100,
+				"value" : 50
+			},
+			"mouseinteract" :
+			{
+				"order" : 19,
+				"text" : "滑鼠互動（拖曳旋轉、滾輪縮放）",
+				"type" : "bool",
+				"value" : true
+			},
+			"parallax" :
+			{
+				"order" : 20,
+				"text" : "視角跟隨滑鼠偏移",
+				"type" : "bool",
+				"value" : true
+			},
+			"parallaxstrength" :
+			{
+				"order" : 21,
+				"text" : "滑鼠偏移幅度（度）",
+				"type" : "slider",
+				"min" : 1,
+				"max" : 15,
+				"value" : 5,
+				"condition" : "parallax.value == true"
+			},
+			"parallaxinvert" :
+			{
+				"order" : 22,
+				"text" : "滑鼠偏移方向反轉",
+				"type" : "bool",
+				"value" : false,
+				"condition" : "parallax.value == true"
+			},
+			"showui" :
+			{
+				"order" : 23,
+				"text" : "顯示原始控制面板",
+				"type" : "bool",
+				"value" : false
+			},
+			"showdiag" :
+			{
+				"order" : 24,
+				"text" : "一直顯示診斷資訊",
+				"type" : "bool",
+				"value" : false
+			}
+		}
+	},
+	"preview" : "preview.jpg",
+	"tags" : [ "Nature" ],
+	"title" : "NeuralSpecOcean 海岸海洋",
+	"type" : "web"
+}
